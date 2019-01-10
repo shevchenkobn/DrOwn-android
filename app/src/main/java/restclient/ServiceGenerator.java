@@ -17,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class ServiceGenerator {
     public static String TAG = "REST_API";
-    public static final String BASE_API = "api/v1/";
-    public static String baseUrl = "http://localhost:5000/";
+    public static final String BASE_API = "/api/v1/";
+    private static String baseUrl = "http://192.168.0.102:5000" + BASE_API;
 
     private static Tokens tokens;
 
@@ -49,19 +49,8 @@ public abstract class ServiceGenerator {
     private ServiceGenerator() {
     }
 
-    private static boolean isNonAuthUrl(Request request) {
-        String method = request.method();
-        String url = request.url().encodedPath();
-        return url.equalsIgnoreCase(BASE_API + "auth/") && method.equalsIgnoreCase("post");
-    }
-
-    private static void createRetrofit() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(okHttpClient)
-                .build();
-        api = null;
+    public static boolean hasTokens() {
+        return tokens != null;
     }
 
     public static ApiInterface getService() {
@@ -78,9 +67,10 @@ public abstract class ServiceGenerator {
         if (TextUtils.isEmpty(newBaseUrl)) {
             throw new IllegalArgumentException("newBaseUrl is empty");
         }
-        baseUrl = newBaseUrl;
-        if (baseUrl.charAt(baseUrl.length() - 1) != '/') {
-            baseUrl += '/';
+        if (baseUrl.charAt(baseUrl.length() - 1) == '/') {
+            baseUrl = newBaseUrl.substring(0, baseUrl.length() - 1);
+        } else {
+            baseUrl = newBaseUrl;
         }
 
         createRetrofit();
@@ -95,8 +85,23 @@ public abstract class ServiceGenerator {
             }
             Log.w(TAG, response.errorBody().string());
         } catch (IOException err) {
-            Log.e(TAG, err.getMessage());
+            Log.e(TAG, "Error while authentication", err);
         }
         return false;
+    }
+
+    private static boolean isNonAuthUrl(Request request) {
+        String method = request.method();
+        String url = request.url().encodedPath();
+        return url.equalsIgnoreCase(BASE_API + "auth/") && method.equalsIgnoreCase("post");
+    }
+
+    private static void createRetrofit() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
+                .build();
+        api = null;
     }
 }
