@@ -29,6 +29,9 @@ public interface ApiInterface {
     @GET("drone-orders/")
     Call<List<DroneOrder>> getOrders(@Query("device-ids") String deviceIds);
 
+    @POST("drone-orders/")
+    Call<DroneOrder> sendOrder(@Body() DroneOrderCreate order);
+
     @GET("drone-measurements/")
     Call<List<Telemetry>> getMeasurements(@Query("device-ids") String droneId);
 }

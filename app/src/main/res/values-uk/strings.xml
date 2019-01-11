@@ -71,4 +71,10 @@
     <string name="order_action_RELEASE_CARGO">Відпустити вантаж</string>
 
     <string name="action_order_create">Відправити новий</string>
+    <string name="get_location_error">Не вдалося отримати місцеположення</string>
+    <string name="latitude">Широта</string>
+    <string name="longitude">Довгота</string>
+    <string name="network_error">Сталася помилка, спробуйте ще раз</string>
+    <string name="action_get_location">Поточне місцеположення</string>
+    <string name="action_order_create_submit">Відправити наказ</string>
 </resources>

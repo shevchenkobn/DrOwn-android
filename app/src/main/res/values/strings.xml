@@ -74,4 +74,13 @@
     <string name="order_action_RELEASE_CARGO">Release cargo</string>
 
     <string name="action_order_create">Send new</string>
+    <string name="get_location_error">Failed to get location</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude_invalid">Latitude must be a number between -90 and 90</string>
+    <string name="longitude_invalid">Longitude must be a number between -180 and 180</string>
+    <string name="network_error">Error occurred, try again</string>
+    <string name="action_get_location">Get current location</string>
+    <string name="action_order_create_submit">Send order</string>
+
 </resources>

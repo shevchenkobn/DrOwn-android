@@ -1,14 +1,16 @@
 package com.bogdan.drown;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -69,6 +71,18 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_list, container, false);
 
+        Button ordersBtn = view.findViewById(R.id.order_create);
+        ordersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                if (mainActivity == null) {
+                    Log.e(TAG, "mainActivity is null");
+                    return;
+                }
+                mainActivity.replaceFragment(OrderCreate.newInstance(deviceId));
+            }
+        });
         // Set the adapter
         updateView(view);
         return view;

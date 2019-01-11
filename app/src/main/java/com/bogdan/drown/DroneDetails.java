@@ -1,10 +1,13 @@
 package com.bogdan.drown;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import restclient.Drone;
 import restclient.NetworkManager;
@@ -70,13 +74,13 @@ public class DroneDetails extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         NetworkManager.getService().getDrone(mDroneId).enqueue(new Callback<Drone>() {
             @Override
             public void onResponse(Call<Drone> call, Response<Drone> response) {
                 drone = response.body();
-                updateView();
+                updateView(view);
             }
 
             @Override
@@ -86,8 +90,15 @@ public class DroneDetails extends Fragment {
         });
     }
 
-    private void updateView() {
-        View view = getView();
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    private void updateView(View view) {
+        if (view == null) {
+            view = getView();
+        }
         ((TextView) view.findViewById(R.id.drone_details_device_id)).setText(drone.getDeviceId());
         ((TextView) view.findViewById(R.id.drone_details_status)).setText(drone.getStatusName());
         ((TextView) view.findViewById(R.id.drone_details_base_latitude)).setText(drone.getBaseLatitude().toString());
@@ -119,16 +130,20 @@ public class DroneDetails extends Fragment {
                                 NetworkManager.getService().deleteDrone(drone.getDroneId()).enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-
+                                        if (response.isSuccessful()) {
+                                            getFragmentManager().popBackStackImmediate();
+                                            return;
+                                        }
+                                        Activity activity = getActivity();
+                                        Toast.makeText(activity, activity.getString(R.string.network_error), Toast.LENGTH_LONG).show();
                                     }
 
                                     @Override
                                     public void onFailure(Call<Void> call, Throwable t) {
-
+                                        Activity activity = getActivity();
+                                        Toast.makeText(activity, activity.getString(R.string.network_error), Toast.LENGTH_LONG).show();
                                     }
                                 });
-                                Log.w(TAG_FRAGMENT, "deleted");
-                                getFragmentManager().popBackStackImmediate();
                             }
                         })
                         .setNegativeButton(R.string.prompt_drone_delete_no, new DialogInterface.OnClickListener() {
