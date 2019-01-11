@@ -4,9 +4,11 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     @POST("auth/")
@@ -20,4 +22,10 @@ public interface ApiInterface {
 
     @GET("drones/{droneId}")
     Call<Drone> getDrone(@Path("droneId") String droneId);
+
+    @DELETE("drones/{droneId}")
+    Call<Void> deleteDrone(@Path("droneId") String droneId);
+
+    @GET("drone-measurements/")
+    Call<List<Telemetry>> getMeasurements(@Query("device-ids") String droneId);
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/telemetry_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/telemetry_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toTopOf="@id/telemetry_view"
+        app:layout_constraintLeft_toLeftOf="@id/telemetry_view"/>
+
+    <TextView
+        android:id="@+id/telemetry_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintLeft_toRightOf="@id/telemetry_created_at"
+        app:layout_constraintStart_toEndOf="@+id/telemetry_created_at"
+        app:layout_constraintTop_toTopOf="@id/telemetry_view" />
+
+    <TextView
+        android:id="@+id/telemetry_battery_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintLeft_toLeftOf="@id/telemetry_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/telemetry_created_at" />
+
+    <TextView
+        android:id="@+id/telemetry_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toBottomOf="@id/telemetry_status"
+        app:layout_constraintLeft_toRightOf="@id/telemetry_battery_charge" />
+
+    <TextView
+        android:id="@+id/telemetry_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toBottomOf="@id/telemetry_status"
+        app:layout_constraintLeft_toRightOf="@id/telemetry_latitude" />
+</android.support.constraint.ConstraintLayout>

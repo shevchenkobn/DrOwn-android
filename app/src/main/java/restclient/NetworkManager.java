@@ -15,11 +15,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -107,9 +109,14 @@ public abstract class NetworkManager {
     private static Gson gson = new GsonBuilder()
             .registerTypeAdapter(Boolean.class, anyToBoolean)
             .registerTypeAdapter(boolean.class, anyToBoolean)
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .create();
 
     private NetworkManager() {
+    }
+
+    public static Call<List<Telemetry>> getMeasurements(String deviceId) {
+        return getService().getMeasurements(deviceId + "," + deviceId);
     }
 
     public static boolean hasTokens() {

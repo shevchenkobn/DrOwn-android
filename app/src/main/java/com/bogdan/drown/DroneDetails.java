@@ -1,12 +1,16 @@
 package com.bogdan.drown;
 
-import android.support.v4.app.Fragment;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import restclient.Drone;
@@ -84,15 +88,15 @@ public class DroneDetails extends Fragment {
 
     private void updateView() {
         View view = getView();
-        ((TextView)view.findViewById(R.id.drone_details_device_id)).setText(drone.getDeviceId());
-        ((TextView)view.findViewById(R.id.drone_details_status)).setText(drone.getStatusName());
-        ((TextView)view.findViewById(R.id.drone_details_base_latitude)).setText(drone.getBaseLatitude().toString());
-        ((TextView)view.findViewById(R.id.drone_details_base_longitude)).setText(drone.getBaseLongitude().toString());
-        ((TextView)view.findViewById(R.id.drone_details_battery_power)).setText(drone.getBatteryPower().toString());
-        ((TextView)view.findViewById(R.id.drone_details_engine_power)).setText(drone.getEnginePower().toString());
-        ((TextView)view.findViewById(R.id.drone_details_load_capacity)).setText(drone.getLoadCapacity().toString());
+        ((TextView) view.findViewById(R.id.drone_details_device_id)).setText(drone.getDeviceId());
+        ((TextView) view.findViewById(R.id.drone_details_status)).setText(drone.getStatusName());
+        ((TextView) view.findViewById(R.id.drone_details_base_latitude)).setText(drone.getBaseLatitude().toString());
+        ((TextView) view.findViewById(R.id.drone_details_base_longitude)).setText(drone.getBaseLongitude().toString());
+        ((TextView) view.findViewById(R.id.drone_details_battery_power)).setText(drone.getBatteryPower().toString());
+        ((TextView) view.findViewById(R.id.drone_details_engine_power)).setText(drone.getEnginePower().toString());
+        ((TextView) view.findViewById(R.id.drone_details_load_capacity)).setText(drone.getLoadCapacity().toString());
         String liquidsMessage = getString(drone.canCarryLiquids() ? R.string.drone_can_carry_liquids : R.string.drone_cannot_carry_liquids);
-        ((TextView)view.findViewById(R.id.drone_details_can_carry_liquids)).setText(liquidsMessage);
+        ((TextView) view.findViewById(R.id.drone_details_can_carry_liquids)).setText(liquidsMessage);
 
     }
 
@@ -100,7 +104,50 @@ public class DroneDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drone_details, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_drone_details, container, false);
+
+        Button deleteBtn = view.findViewById(R.id.drone_details_delete);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.prompt_drone_delete)
+                        .setPositiveButton(R.string.prompt_drone_delete_yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                NetworkManager.getService().deleteDrone(drone.getDroneId()).enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+
+                                    }
+                                });
+                                Log.w(TAG_FRAGMENT, "deleted");
+                                getFragmentManager().popBackStackImmediate();
+                            }
+                        })
+                        .setNegativeButton(R.string.prompt_drone_delete_no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                builder.create().show();
+            }
+        });
+        Button telemetryBtn = view.findViewById(R.id.drone_details_telemetry);
+        telemetryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).replaceFragment(TelemetryFragment.newInstance(drone.getDeviceId()), TelemetryFragment.TAG);
+            }
+        });
+        return view;
     }
 
     @Override

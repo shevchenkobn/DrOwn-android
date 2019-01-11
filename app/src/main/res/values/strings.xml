@@ -42,4 +42,34 @@
     <string name="drone_load_capacity">Load Capacity</string>
     <string name="drone_can_carry_liquids">Can Carry Liquids</string>
     <string name="drone_cannot_carry_liquids">Cannot Carry Liquids</string>
+
+    <string name="action_drone_create">Create</string>
+    <string name="action_drone_details_orders">Tasks</string>
+    <string name="action_drone_details_telemetry">Telemetry</string>
+    <string name="action_drone_details_delete">Delete</string>
+    <string name="prompt_drone_delete">Delete drone?</string>
+    <string name="prompt_drone_delete_yes">Yes</string>
+    <string name="prompt_drone_delete_no">No</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="telemetry_status_WAITING">Waiting</string>
+    <string name="telemetry_status_TAKING_CARGO">Taking cargo</string>
+    <string name="telemetry_status_RELEASING_CARGO">Releasing cargo</string>
+    <string name="telemetry_status_MOVING">Moving</string>
+
+    <string name="order_status_STARTED">In process</string>
+    <string name="order_status_ERROR">Error</string>
+    <string name="order_status_ENQUEUED">Enqueued</string>
+    <string name="order_status_SKIPPED">Skipped</string>
+    <string name="order_status_DONE">Done</string>
+    <string name="order_status_TOO_FAR_GEO">Too far</string>
+    <string name="order_status_HAS_LOAD">Already loaded error</string>
+    <string name="order_status_HAS_NO_LOAD">Not loaded error</string>
+
+    <string name="telemetry_status_STOP_AND_WAIT">Stop and wait</string>
+    <string name="telemetry_status_MOVE_TO_LOCATION">Move to location</string>
+    <string name="telemetry_status_TAKE_CARGO">Take cargo</string>
+    <string name="telemetry_status_RELEASE_CARGO">Release cargo</string>
 </resources>

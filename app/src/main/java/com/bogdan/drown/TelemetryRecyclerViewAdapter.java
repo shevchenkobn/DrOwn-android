@@ -6,22 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bogdan.drown.ItemFragment.OnListFragmentInteractionListener;
+import com.bogdan.drown.TelemetryFragment.OnListFragmentInteractionListener;
 import com.bogdan.drown.dummy.DummyContent.DummyItem;
 
 import java.util.List;
+
+import restclient.Telemetry;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class TelemetryRecyclerViewAdapter extends RecyclerView.Adapter<TelemetryRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Telemetry> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public TelemetryRecyclerViewAdapter(List<Telemetry> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -29,15 +31,18 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.fragment_telemetry, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mStatusView.setText(mValues.get(position).getStatusName());
+        holder.mBatteryChargeView.setText(mValues.get(position).getBatteryCharge().toString() + " %");
+        holder.mLatitudeView.setText("x: " + mValues.get(position).getLatitude().toString());
+        holder.mLongitudeView.setText("y: " + mValues.get(position).getLongitude().toString());
+        holder.mCreatedAtView.setText(mValues.get(position).getCreatedAt().toLocaleString());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,20 +63,26 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mBatteryChargeView;
+        public final TextView mStatusView;
+        public final TextView mLongitudeView;
+        public final TextView mLatitudeView;
+        public final TextView mCreatedAtView;
+        public Telemetry mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.telemetry_battery_charge);
-            mContentView = (TextView) view.findViewById(R.id.telemetry_status);
+            mBatteryChargeView = (TextView) view.findViewById(R.id.telemetry_battery_charge);
+            mStatusView = (TextView) view.findViewById(R.id.telemetry_status);
+            mLongitudeView = (TextView) view.findViewById(R.id.telemetry_longitude);
+            mLatitudeView = (TextView) view.findViewById(R.id.telemetry_latitude);
+            mCreatedAtView = (TextView) view.findViewById(R.id.telemetry_created_at);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mStatusView.getText() + "'";
         }
     }
 }

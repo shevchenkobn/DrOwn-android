@@ -19,35 +19,35 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/button1"
-                android:layout_width="30dp"
+                android:id="@+id/drone_details_orders"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="B" />
+                android:text="@string/action_drone_details_orders" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"></View>
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_weight="1"></View>-->
 
             <Button
-                android:id="@+id/Button01"
-                android:layout_width="30dp"
+                android:id="@+id/drone_details_telemetry"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="B" />
+                android:text="@string/action_drone_details_telemetry" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"></View>
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_weight="1"></View>-->
 
             <Button
-                android:id="@+id/Button02"
-                android:layout_width="30dp"
+                android:id="@+id/drone_details_delete"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="B" />
+                android:text="@string/action_drone_details_delete" />
 
             <!--<View-->
             <!--android:layout_width="0dp"-->

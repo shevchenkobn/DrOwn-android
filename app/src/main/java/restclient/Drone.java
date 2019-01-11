@@ -7,6 +7,10 @@ import android.util.SparseArray;
 
 public class Drone {
     public static final String TAG = "DRONE_MODEL";
+    public static final int UNAUTHORIZED = 0;
+    public static final int OFFLINE = 0;
+    public static final int IDLE = 0;
+    public static final int WORKING = 0;
     private static Resources resources;
     private static String packageName;
     private static final SparseArray<String> droneStatuses = new SparseArray<String>();

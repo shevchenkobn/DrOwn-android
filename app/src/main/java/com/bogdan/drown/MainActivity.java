@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import restclient.Drone;
 import restclient.NetworkManager;
+import restclient.Telemetry;
 import restclient.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Drone.setContext(getApplicationContext());
+        Telemetry.setContext(getApplicationContext());
     }
 
     @Override

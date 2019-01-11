@@ -1,21 +1,19 @@
 package com.bogdan.drown;
 
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import restclient.Drone;
 import restclient.NetworkManager;
+import restclient.Telemetry;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,47 +24,31 @@ import retrofit2.Response;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class DroneFragment extends Fragment implements Refreshable {
-    public static final String TAG_FRAGMENT = "DRONE_FRAGMENT";
+public class TelemetryFragment extends Fragment {
+    public static final String TAG = "TELEMETRY_FRAGMENT";
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_DEVICE_ID = "deviceId";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private List<Drone> drones;
+    private String deviceId;
+    private List<Telemetry> telemetryList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DroneFragment() {
-    }
-
-    @Override
-    public void refresh() {
-        drones = new ArrayList<>();
-        updateRecyclerView(getView());
-        NetworkManager.getService().getDrones().enqueue(new Callback<List<Drone>>() {
-            @Override
-            public void onResponse(Call<List<Drone>> call, Response<List<Drone>> response) {
-                drones = response.body();
-                updateRecyclerView(getView());
-            }
-
-            @Override
-            public void onFailure(Call<List<Drone>> call, Throwable t) {
-
-            }
-        });
+    public TelemetryFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static DroneFragment newInstance(int columnCount) {
-        DroneFragment fragment = new DroneFragment();
+    public static TelemetryFragment newInstance(String deviceId) {
+        TelemetryFragment fragment = new TelemetryFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString(ARG_DEVICE_ID, deviceId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,28 +59,43 @@ public class DroneFragment extends Fragment implements Refreshable {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            deviceId = getArguments().getString(ARG_DEVICE_ID);
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        refresh();
+        NetworkManager.getMeasurements(deviceId).enqueue(new Callback<List<Telemetry>>() {
+            @Override
+            public void onResponse(Call<List<Telemetry>> call, Response<List<Telemetry>> response) {
+                telemetryList = response.body();
+                updateView(getView());
+            }
+
+            @Override
+            public void onFailure(Call<List<Telemetry>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_drone_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_telemetry_list, container, false);
+
+        // Set the adapter
+        updateView(view);
         return view;
     }
 
-    private void updateRecyclerView(View view) {
+    private void updateView(View view) {
         if (view == null) {
             return;
         }
-        view = view.findViewById(R.id.drone_list);
-        if (view instanceof RecyclerView) {
+        view = view.findViewById(R.id.telemetry_list);
+        if (view instanceof RecyclerView && telemetryList != null) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
@@ -106,9 +103,7 @@ public class DroneFragment extends Fragment implements Refreshable {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new DroneRecyclerViewAdapter(drones, mListener));
-        } else {
-            Log.w(TAG_FRAGMENT, "Not recycler view");
+            recyclerView.setAdapter(new TelemetryRecyclerViewAdapter(telemetryList, mListener));
         }
     }
 
@@ -119,8 +114,8 @@ public class DroneFragment extends Fragment implements Refreshable {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnListFragmentInteractionListener");
         }
     }
 
@@ -142,6 +137,6 @@ public class DroneFragment extends Fragment implements Refreshable {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Drone drone);
+        void onListFragmentInteraction(Telemetry item);
     }
 }

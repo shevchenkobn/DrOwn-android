@@ -40,4 +40,33 @@
     <string name="drone_load_capacity">Вантажопідйомність</string>
     <string name="drone_can_carry_liquids">Може переносити рідини</string>
     <string name="drone_cannot_carry_liquids">Не може переносити рідини</string>
+
+    <string name="action_drone_create">Створити</string>
+    <string name="action_drone_details_orders">Завдання</string>
+    <string name="action_drone_details_telemetry">Вимірювання</string>
+    <string name="action_drone_details_delete">Видалити</string>
+
+    <string name="prompt_drone_delete">Видалити дрона?</string>
+    <string name="prompt_drone_delete_yes">Так</string>
+    <string name="prompt_drone_delete_no">Ні</string>
+
+
+    <string name="telemetry_status_WAITING">Очікування</string>
+    <string name="telemetry_status_TAKING_CARGO">Взяття вантажу</string>
+    <string name="telemetry_status_RELEASING_CARGO">Відпускання вантажу</string>
+    <string name="telemetry_status_MOVING">В русі</string>
+
+    <string name="order_status_STARTED">В процесі</string>
+    <string name="order_status_ERROR">Помилка</string>
+    <string name="order_status_ENQUEUED">В черзі</string>
+    <string name="order_status_SKIPPED">Пропущений</string>
+    <string name="order_status_DONE">Виконаний</string>
+    <string name="order_status_TOO_FAR_GEO">Занадто далеко</string>
+    <string name="order_status_HAS_LOAD">Вже завантажений (помилка)</string>
+    <string name="order_status_HAS_NO_LOAD">Не завантажений (помилка)</string>
+
+    <string name="telemetry_status_STOP_AND_WAIT">Зупинитись та чекати</string>
+    <string name="telemetry_status_MOVE_TO_LOCATION">Рухатися за координатами</string>
+    <string name="telemetry_status_TAKE_CARGO">Узяти вантаж</string>
+    <string name="telemetry_status_RELEASE_CARGO">Відпустити вантаж</string>
 </resources>
