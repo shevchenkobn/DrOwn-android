@@ -26,6 +26,9 @@ public interface ApiInterface {
     @DELETE("drones/{droneId}")
     Call<Void> deleteDrone(@Path("droneId") String droneId);
 
+    @GET("drone-orders/")
+    Call<List<DroneOrder>> getOrders(@Query("device-ids") String deviceIds);
+
     @GET("drone-measurements/")
     Call<List<Telemetry>> getMeasurements(@Query("device-ids") String droneId);
 }

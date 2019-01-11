@@ -144,7 +144,24 @@ public class DroneDetails extends Fragment {
         telemetryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).replaceFragment(TelemetryFragment.newInstance(drone.getDeviceId()), TelemetryFragment.TAG);
+                MainActivity mainActivity = (MainActivity) getActivity();
+                if (mainActivity == null) {
+                    Log.e(TAG_FRAGMENT, "mainActivity is null");
+                    return;
+                }
+                mainActivity.replaceFragment(TelemetryFragment.newInstance(drone.getDeviceId()), TelemetryFragment.TAG);
+            }
+        });
+        Button ordersBtn = view.findViewById(R.id.drone_details_orders);
+        ordersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                if (mainActivity == null) {
+                    Log.e(TAG_FRAGMENT, "mainActivity is null");
+                    return;
+                }
+                mainActivity.replaceFragment(OrderFragment.newInstance(drone.getDeviceId()), OrderFragment.TAG);
             }
         });
         return view;

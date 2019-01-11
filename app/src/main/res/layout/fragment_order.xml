@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_view"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_margin="5dp">
 
     <TextView
-        android:id="@+id/item_number"
+        android:id="@+id/order_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toTopOf="@id/order_view"
+        app:layout_constraintLeft_toLeftOf="@id/order_view"
+        app:layout_constraintStart_toStartOf="@id/order_view" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/order_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toTopOf="@id/order_view"
+        app:layout_constraintLeft_toRightOf="@id/order_action"
+        app:layout_constraintStart_toEndOf="@+id/order_action" />
+
+    <TextView
+        android:id="@+id/order_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toBottomOf="@id/order_action"
+        app:layout_constraintLeft_toLeftOf="@id/order_view"
+        app:layout_constraintStart_toStartOf="@id/order_view" />
+
+    <TextView
+        android:id="@+id/order_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintTop_toBottomOf="@id/order_status"
+        app:layout_constraintLeft_toLeftOf="@id/order_latitude"
+        app:layout_constraintStart_toEndOf="@id/order_latitude" />
+
+</android.support.constraint.ConstraintLayout>

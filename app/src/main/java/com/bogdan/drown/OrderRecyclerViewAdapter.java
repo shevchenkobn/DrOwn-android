@@ -11,6 +11,8 @@ import com.bogdan.drown.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
+import restclient.DroneOrder;
+
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
@@ -18,10 +20,10 @@ import java.util.List;
  */
 public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<DroneOrder> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public OrderRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public OrderRecyclerViewAdapter(List<DroneOrder> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,8 +38,16 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mActionView.setText(mValues.get(position).getActionName());
+        holder.mStatusView.setText(mValues.get(position).getStatusName());
+        Double latitude = mValues.get(position).getLatitude();
+        if (latitude != null) {
+            holder.mLatitudeView.setText("x = " + latitude.toString());
+        }
+        Double longitude = mValues.get(position).getLongitude();
+        if (longitude != null) {
+            holder.mLongitudeView.setText("y = " + longitude.toString());
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,20 +68,24 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mActionView;
+        public final TextView mStatusView;
+        public final TextView mLatitudeView;
+        public final TextView mLongitudeView;
+        public DroneOrder mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mActionView = (TextView) view.findViewById(R.id.order_action);
+            mStatusView = (TextView) view.findViewById(R.id.order_status);
+            mLatitudeView = (TextView) view.findViewById(R.id.order_latitude);
+            mLongitudeView = (TextView) view.findViewById(R.id.order_longitude);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mStatusView.getText() + "'";
         }
     }
 }

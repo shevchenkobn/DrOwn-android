@@ -119,6 +119,10 @@ public abstract class NetworkManager {
         return getService().getMeasurements(deviceId + "," + deviceId);
     }
 
+    public static Call<List<DroneOrder>> getOrders(String deviceId) {
+        return getService().getOrders(deviceId + "," + deviceId);
+    }
+
     public static boolean hasTokens() {
         return tokens != null;
     }

@@ -22,7 +22,7 @@ public class DroneOrderAction {
         droneActions.append(3, "RELEASE_CARGO");
     }
 
-    public static final String getStatusName(int status) {
+    public static final String getActionName(int status) {
         String name = droneActions.get(status);
         if (resources == null) {
             Log.w(TAG, "No resources provided");

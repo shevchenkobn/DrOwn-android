@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import restclient.Drone;
+import restclient.DroneOrderAction;
+import restclient.DroneOrderStatus;
 import restclient.NetworkManager;
 import restclient.Telemetry;
 import restclient.User;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity
 
         Drone.setContext(getApplicationContext());
         Telemetry.setContext(getApplicationContext());
+        DroneOrderStatus.setContext(getApplicationContext());
+        DroneOrderAction.setContext(getApplicationContext());
     }
 
     @Override

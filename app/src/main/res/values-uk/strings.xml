@@ -65,8 +65,10 @@
     <string name="order_status_HAS_LOAD">Вже завантажений (помилка)</string>
     <string name="order_status_HAS_NO_LOAD">Не завантажений (помилка)</string>
 
-    <string name="telemetry_status_STOP_AND_WAIT">Зупинитись та чекати</string>
-    <string name="telemetry_status_MOVE_TO_LOCATION">Рухатися за координатами</string>
-    <string name="telemetry_status_TAKE_CARGO">Узяти вантаж</string>
-    <string name="telemetry_status_RELEASE_CARGO">Відпустити вантаж</string>
+    <string name="order_action_STOP_AND_WAIT">Зупинитись та чекати</string>
+    <string name="order_action_MOVE_TO_LOCATION">Рухатися за координатами</string>
+    <string name="order_action_TAKE_CARGO">Узяти вантаж</string>
+    <string name="order_action_RELEASE_CARGO">Відпустити вантаж</string>
+
+    <string name="action_order_create">Відправити новий</string>
 </resources>

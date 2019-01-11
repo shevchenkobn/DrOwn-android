@@ -1,6 +1,6 @@
 package com.bogdan.drown;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,8 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bogdan.drown.dummy.DummyContent;
-import com.bogdan.drown.dummy.DummyContent.DummyItem;
+import java.util.List;
+
+import restclient.DroneOrder;
+import restclient.NetworkManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -20,13 +25,17 @@ import com.bogdan.drown.dummy.DummyContent.DummyItem;
  * interface.
  */
 public class OrderFragment extends Fragment {
+    public static final String TAG = "ORDER_FRAGMENT";
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String ARG_DRONE_ID = "droneId";
+    private static final String ARG_DEVICE_ID = "deviceId";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private String deviceId;
+    private List<DroneOrder> orders;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -37,10 +46,10 @@ public class OrderFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static OrderFragment newInstance(String droneId) {
+    public static OrderFragment newInstance(String deviceId) {
         OrderFragment fragment = new OrderFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_DRONE_ID, droneId);
+        args.putString(ARG_DEVICE_ID, deviceId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +59,8 @@ public class OrderFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            deviceId = getArguments().getString(ARG_DEVICE_ID);
         }
     }
 
@@ -60,24 +70,33 @@ public class OrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new OrderRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+        updateView(view);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        NetworkManager.getOrders(deviceId).enqueue(new Callback<List<DroneOrder>>() {
+            @Override
+            public void onResponse(Call<List<DroneOrder>> call, Response<List<DroneOrder>> response) {
+                orders = response.body();
+                updateView(getView());
+            }
+
+            @Override
+            public void onFailure(Call<List<DroneOrder>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void updateView(View view) {
         if (view == null) {
             return;
         }
-        if (view instanceof RecyclerView) {
+        view = view.findViewById(R.id.order_list);
+        if (view instanceof RecyclerView && orders != null) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
@@ -85,7 +104,7 @@ public class OrderFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new OrderRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new OrderRecyclerViewAdapter(orders, mListener));
         }
     }
 
@@ -96,8 +115,8 @@ public class OrderFragment extends Fragment {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnListFragmentInteractionListener");
         }
     }
 
@@ -119,6 +138,6 @@ public class OrderFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(DroneOrder item);
     }
 }

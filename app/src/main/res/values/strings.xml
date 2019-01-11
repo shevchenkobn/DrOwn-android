@@ -68,8 +68,10 @@
     <string name="order_status_HAS_LOAD">Already loaded error</string>
     <string name="order_status_HAS_NO_LOAD">Not loaded error</string>
 
-    <string name="telemetry_status_STOP_AND_WAIT">Stop and wait</string>
-    <string name="telemetry_status_MOVE_TO_LOCATION">Move to location</string>
-    <string name="telemetry_status_TAKE_CARGO">Take cargo</string>
-    <string name="telemetry_status_RELEASE_CARGO">Release cargo</string>
+    <string name="order_action_STOP_AND_WAIT">Stop and wait</string>
+    <string name="order_action_MOVE_TO_LOCATION">Move to location</string>
+    <string name="order_action_TAKE_CARGO">Take cargo</string>
+    <string name="order_action_RELEASE_CARGO">Release cargo</string>
+
+    <string name="action_order_create">Send new</string>
 </resources>
