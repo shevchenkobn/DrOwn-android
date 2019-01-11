@@ -6,15 +6,38 @@
     <!--<string name="nav_header_title">Android Studio</string>-->
     <!--<string name="nav_header_subtitle">android.studio@android.com</string>-->
     <string name="nav_header_desc">Навігація</string>
+    <string name="nav_service_items_header">Службові</string>
+    <string name="nav_item_drones">Дрони</string>
     <string name="action_settings">Налаштування</string>
 
     <!-- LoginActivity -->
     <string name="prompt_email">Електронна пошта</string>
     <string name="prompt_password">Пароль</string>
+    <string name="prompt_api_url">URL серверу</string>
     <string name="action_sign_in">Авторизуватися</string>
     <string name="action_sign_in_short">Авторизуватися</string>
+    <string name="action_change_api_url">Змінити URL серверу</string>
     <string name="error_invalid_email">Електронний адрес невірний</string>
     <string name="error_invalid_password">Потрібен пароль</string>
     <string name="error_incorrect_password">Перевірте пароль та підключення до інтернету</string>
     <string name="error_field_required">Це поле обов\'язкокве</string>
+    <string name="error_invalid_api_url">Адреса серверу повинна бути дійсною</string>
+    <string name="message_api_url_changed">Адресу серверу було змінено!</string>
+    <string name="message_api_url_changed_button">Добре</string>
+
+    <string name="drone_status_UNAUTHORIZED">Неактивований</string>
+    <string name="drone_status_OFFLINE">Відключений</string>
+    <string name="drone_status_IDLE">Бездіяльний</string>
+    <string name="drone_status_WORKING">В роботі</string>
+
+
+    <string name="drone_device_id">ID машини</string>
+    <string name="drone_status">Статус</string>
+    <string name="drone_base_longitude">Довгота дому</string>
+    <string name="drone_base_latitude">Широта дому</string>
+    <string name="drone_battery_power">Потужність батареї</string>
+    <string name="drone_engine_power">Потужність двигуна</string>
+    <string name="drone_load_capacity">Вантажопідйомність</string>
+    <string name="drone_can_carry_liquids">Може переносити рідини</string>
+    <string name="drone_cannot_carry_liquids">Не може переносити рідини</string>
 </resources>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DroneDetails">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/drone_details_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="B" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"></View>
+
+            <Button
+                android:id="@+id/Button01"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="B" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"></View>
+
+            <Button
+                android:id="@+id/Button02"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="B" />
+
+            <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_weight="1" >-->
+            <!--</View>-->
+
+            <!--<Button-->
+            <!--android:id="@+id/Button03"-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:text="B" />-->
+        </LinearLayout>
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:stretchColumns="1"
+            app:layout_constraintTop_toBottomOf="@+id/drone_details_buttons">
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_device_id" />
+
+                <TextView
+                    android:id="@+id/drone_details_device_id"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_status" />
+
+                <TextView
+                    android:id="@+id/drone_details_status"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_base_latitude" />
+
+                <TextView
+                    android:id="@+id/drone_details_base_latitude"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_base_longitude" />
+
+                <TextView
+                    android:id="@+id/drone_details_base_longitude"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_battery_power" />
+
+                <TextView
+                    android:id="@+id/drone_details_battery_power"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_engine_power" />
+
+                <TextView
+                    android:id="@+id/drone_details_engine_power"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/drone_load_capacity" />
+
+                <TextView
+                    android:id="@+id/drone_details_load_capacity"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/drone_details_can_carry_liquids"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+        </TableLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

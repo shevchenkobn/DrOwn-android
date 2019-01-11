@@ -6,8 +6,11 @@ import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,12 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import restclient.ServiceGenerator;
+import restclient.NetworkManager;
 
 /**
  * A login screen that offers login via email/password.
  */// implements LoaderCallbacks<Cursor>
 public class LoginActivity extends AppCompatActivity {
+    public static final String TAG = "LOGIN_ACTIVITY";
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -39,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private EditText mApiUrlView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +64,22 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mApiUrlView = (EditText) findViewById(R.id.api_url);
+        mApiUrlView.setText(NetworkManager.getBaseUrl(true));
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        Button mChangeApiUrlButton = (Button) findViewById(R.id.change_api_url_button);
+        mChangeApiUrlButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeApiUrl();
             }
         });
 
@@ -169,11 +184,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private boolean isPasswordValid(String password) {
         return password.length() > 0;
+    }
+
+    private void changeApiUrl() {
+        mApiUrlView.setError(null);
+
+        String url = mApiUrlView.getText().toString();
+        if (TextUtils.isEmpty(url) || !Patterns.WEB_URL.matcher(url).matches()) {
+            mApiUrlView.setError(getString(R.string.error_invalid_api_url));
+            return;
+        }
+        try {
+            NetworkManager.changeBaseUrl(url);
+        } catch (Exception err) {
+            Log.e(TAG, "Error during url change", err);
+            mApiUrlView.setError(getString(R.string.error_invalid_api_url));
+            return;
+        }
+        Snackbar.make(findViewById(android.R.id.content), getString(R.string.message_api_url_changed), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.message_api_url_changed_button), new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .show();
     }
 
     /**
@@ -282,7 +322,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return ServiceGenerator.authenticate(mEmail, mPassword);
+            return NetworkManager.authenticate(mEmail, mPassword);
 
 //            try {
 //                // Simulate network access.

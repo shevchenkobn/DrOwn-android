@@ -9,6 +9,9 @@ public class User {
     @SerializedName("email")
     private String email;
 
+    @SerializedName("name")
+    private String name;
+
     @SerializedName("role")
     private int role;
 
@@ -48,5 +51,17 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean hasRole(int role) {
+        return (this.role & role) > 0;
     }
 }
