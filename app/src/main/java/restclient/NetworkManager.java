@@ -146,7 +146,7 @@ public abstract class NetworkManager {
         if (TextUtils.isEmpty(newBaseUrl)) {
             throw new IllegalArgumentException("newBaseUrl is empty");
         }
-        if (baseUrl.charAt(baseUrl.length() - 1) == '/') {
+        if (newBaseUrl.charAt(newBaseUrl.length() - 1) == '/') {
             baseUrl = newBaseUrl.substring(0, newBaseUrl.length() - 1);
         } else {
             baseUrl = newBaseUrl;
