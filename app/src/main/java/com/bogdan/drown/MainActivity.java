@@ -81,6 +81,12 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+//            FragmentManager manager = getSupportFragmentManager();
+//            if (manager.getBackStackEntryCount() == 0) {
+//                super.onBackPressed();
+//                return;
+//            }
+//            manager.popBackStackImmediate();
         }
     }
 
@@ -147,6 +153,13 @@ public class MainActivity extends AppCompatActivity
         } else {
             fragmentTransaction.replace(R.id.main_outlet, destFragment);
         }
+//        try {
+//            fragmentTransaction.detach(destFragment);
+//        } catch (Exception err) {}
+//        try {
+//            fragmentTransaction.attach(destFragment);
+//        } catch (Exception err) {}
+
 
         // Commit the Fragment replace action.
         fragmentTransaction.commit();

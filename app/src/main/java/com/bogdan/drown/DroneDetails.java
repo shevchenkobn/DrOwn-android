@@ -131,7 +131,9 @@ public class DroneDetails extends Fragment {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         if (response.isSuccessful()) {
-                                            getFragmentManager().popBackStackImmediate();
+                                            try {
+                                                ((MainActivity) getActivity()).onBackPressed();
+                                            } catch (Exception err) {}
                                             return;
                                         }
                                         Activity activity = getActivity();

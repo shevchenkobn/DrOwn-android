@@ -38,15 +38,20 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mActionView.setText(mValues.get(position).getActionName());
-        holder.mStatusView.setText(mValues.get(position).getStatusName());
-        Double latitude = mValues.get(position).getLatitude();
+        String action = holder.mItem.getActionName();
+        holder.mActionView.setText(action);
+        holder.mStatusView.setText(holder.mItem.getStatusName());
+        Double latitude = holder.mItem.getLatitude();
         if (latitude != null) {
             holder.mLatitudeView.setText("x = " + latitude.toString());
+        } else {
+            holder.mLatitudeView.setText("");
         }
-        Double longitude = mValues.get(position).getLongitude();
+        Double longitude = holder.mItem.getLongitude();
         if (longitude != null) {
             holder.mLongitudeView.setText("y = " + longitude.toString());
+        } else {
+            holder.mLongitudeView.setText("");
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

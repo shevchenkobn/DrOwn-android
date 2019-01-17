@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">DrOwn: Дрони</string>
     <!-- MainActivity -->
     <string name="navigation_drawer_open">Відкрити навігацію</string>
     <string name="navigation_drawer_close">Закрити навігацію</string>
@@ -9,6 +10,7 @@
     <string name="nav_service_items_header">Службові</string>
     <string name="nav_item_drones">Дрони</string>
     <string name="action_settings">Налаштування</string>
+    <string name="title_activity_login">Авторизуватися</string>
 
     <!-- LoginActivity -->
     <string name="prompt_email">Електронна пошта</string>
@@ -74,6 +76,8 @@
     <string name="get_location_error">Не вдалося отримати місцеположення</string>
     <string name="latitude">Широта</string>
     <string name="longitude">Довгота</string>
+    <string name="latitude_invalid">Широта повинна бути числом між -90 та 90</string>
+    <string name="longitude_invalid">Довгота повинна бути числом між -180 та 180</string>
     <string name="network_error">Сталася помилка, спробуйте ще раз</string>
     <string name="action_get_location">Поточне місцеположення</string>
     <string name="action_order_create_submit">Відправити наказ</string>

@@ -250,7 +250,7 @@ public class OrderCreate extends Fragment {
                 if (response.isSuccessful()) {
                     if (getActivity() instanceof MainActivity) {
                         MainActivity activity = (MainActivity)getActivity();
-                        activity.replaceFragment(OrderFragment.newInstance(deviceId));
+                        activity.replaceFragment(OrderFragment.newInstance(deviceId), OrderFragment.TAG);
                     } else {
                         getActivity().getSupportFragmentManager().popBackStackImmediate();
                     }
@@ -290,6 +290,8 @@ public class OrderCreate extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
