@@ -148,10 +148,15 @@ public class MainActivity extends AppCompatActivity
 
         // Replace the layout holder with the required Fragment object.
         if (tag != null) {
+//            Fragment present = fragmentManager.findFragmentByTag(tag);
+//            if (present != null) {
+//                fragmentTransaction.remove(present);
+//            }
             fragmentTransaction.replace(R.id.main_outlet, destFragment, tag);
             fragmentTransaction.addToBackStack(tag);
         } else {
             fragmentTransaction.replace(R.id.main_outlet, destFragment);
+            fragmentTransaction.addToBackStack(null);
         }
 //        try {
 //            fragmentTransaction.detach(destFragment);

@@ -248,12 +248,12 @@ public class OrderCreate extends Fragment {
             @Override
             public void onResponse(Call<DroneOrder> call, Response<DroneOrder> response) {
                 if (response.isSuccessful()) {
-                    if (getActivity() instanceof MainActivity) {
-                        MainActivity activity = (MainActivity)getActivity();
-                        activity.replaceFragment(OrderFragment.newInstance(deviceId), OrderFragment.TAG);
-                    } else {
-                        getActivity().getSupportFragmentManager().popBackStackImmediate();
-                    }
+                    getActivity().getSupportFragmentManager().popBackStackImmediate();
+//                    if (getActivity() instanceof MainActivity) {
+//                        MainActivity activity = (MainActivity)getActivity();
+//                        activity.replaceFragment(OrderFragment.newInstance(deviceId));
+//                    } else {
+//                    }
                     return;
                 }
                 try {

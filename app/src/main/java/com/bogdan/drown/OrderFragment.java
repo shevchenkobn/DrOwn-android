@@ -80,7 +80,7 @@ public class OrderFragment extends Fragment {
                     Log.e(TAG, "mainActivity is null");
                     return;
                 }
-                mainActivity.replaceFragment(OrderCreate.newInstance(deviceId), OrderCreate.TAG);
+                mainActivity.replaceFragment(OrderCreate.newInstance(deviceId));
             }
         });
         // Set the adapter
