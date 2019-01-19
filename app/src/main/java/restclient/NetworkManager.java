@@ -38,7 +38,7 @@ public abstract class NetworkManager {
 
     public static String TAG = "REST_API";
     public static final String BASE_API = "/api/v1/";
-    private static String baseUrl = "https://1f44dee6.ngrok.io" + BASE_API;
+    private static String baseUrl = "https://04aa783d.ngrok.io" + BASE_API;
 
     public static String getBaseUrl(boolean crop) {
         return crop ? baseUrl.substring(0, baseUrl.length() - BASE_API.length() + 1) : baseUrl;
